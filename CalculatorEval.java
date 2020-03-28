@@ -3,24 +3,24 @@ import java.io.IOException;
 
 class CalculatorEval {
 
-    private int lookaheadToken;
+	private int lookaheadToken;
 
-    private InputStream in;
+	private InputStream in;
 
-    public CalculatorEval(InputStream in) throws IOException {
+	public CalculatorEval(InputStream in) throws IOException {
 		this.in = in;
 		lookaheadToken = in.read();
-    }
+	}
 
-    private void consume(int symbol) throws IOException, ParseError {
+	private void consume(int symbol) throws IOException, ParseError {
 		if (lookaheadToken != symbol)
-	    	throw new ParseError();
+			throw new ParseError();
 		lookaheadToken = in.read();
-    }
+	}
 
-    private int evalDigit(int digit) {
+	private int evalDigit(int digit) {
 		return digit - '0';
-    }
+	}
 
 	private int Exp() throws IOException, ParseError {
 		if ( (lookaheadToken < '0' || lookaheadToken > '9') && lookaheadToken != '(')
@@ -31,18 +31,18 @@ class CalculatorEval {
 	}
 
 	private int Exp1(int left_term) throws IOException, ParseError {
-		if (lookaheadToken != '+' && lookaheadToken != '-') // ||  lookaheadToken == '\n' || lookaheadToken == -1
+		if (lookaheadToken != '+' && lookaheadToken != '-') // || lookaheadToken == '\n' || lookaheadToken == -1
 			return left_term;
 
 		if (lookaheadToken == '+') {
 			consume('+');
-			int current_result =  left_term + Term();
+			int current_result = left_term + Term();
 			int exp1 = Exp1(current_result);
 			return exp1;
 		}
 		else {
 			consume('-');
-			int current_result =  left_term - Term();
+			int current_result = left_term - Term();
 			int exp1 = Exp1(current_result);
 			return exp1;
 		}
@@ -112,29 +112,29 @@ class CalculatorEval {
 
 	private int Digit() throws IOException, ParseError {
 		if(lookaheadToken < '0' || lookaheadToken > '9')
-		    throw new ParseError();
+			throw new ParseError();
 		int digit = evalDigit(lookaheadToken);
 		consume(lookaheadToken);
 		return digit;
 	}
 
-    public int eval() throws IOException, ParseError {
+	public int eval() throws IOException, ParseError {
 		int rv = Exp();
 		if (lookaheadToken != '\n' && lookaheadToken != -1)
-		    throw new ParseError();
+			throw new ParseError();
 		return rv;
-    }
+	}
 
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 		try {
-		    CalculatorEval evaluate = new CalculatorEval(System.in);
-		    System.out.println(evaluate.eval());
+			CalculatorEval evaluate = new CalculatorEval(System.in);
+			System.out.println(evaluate.eval());
 		}
 		catch (IOException e) {
-		    System.err.println(e.getMessage());
+			System.err.println(e.getMessage());
 		}
 		catch(ParseError err){
-		    System.err.println(err.getMessage());
+			System.err.println(err.getMessage());
 		}
-    }
+	}
 }
