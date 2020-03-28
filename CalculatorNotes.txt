@@ -3,7 +3,7 @@
 Exp -> Term Exp1
 Exp1 -> + Term Exp1 | - Term Exp1 | ε
 Term -> Factor Term1
-Term1 -> * Factor Term1 | /  Factor Term1 | ε
+Term1 -> * Factor Term1 | / Factor Term1 | ε
 Factor -> ( Exp ) | Digits
 Digits -> Digit More
 More -> Digits | ε
@@ -19,7 +19,7 @@ LL1 CALCULATOR PARSER (BEAUTIFIED)
 #4				| ε
 #5	Term →		Factor Term1
 #6	Term1 →		* Factor Term1
-#7				| /  Factor Term1
+#7				| / Factor Term1
 #8				| ε
 #9	Factor →	( Exp )
 #10				| Digits
