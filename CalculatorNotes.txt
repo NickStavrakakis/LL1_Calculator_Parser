@@ -13,19 +13,19 @@ Digit -> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 
 LL1 CALCULATOR PARSER (BEAUTIFIED)
 ==================================
-#1	Exp	→		Term Exp1
+#1	Exp →		Term Exp1
 #2	Exp1 →		+ Term Exp1
-#3				| - Term Exp1
-#4				| ε
+#3			| - Term Exp1
+#4			| ε
 #5	Term →		Factor Term1
 #6	Term1 →		* Factor Term1
-#7				| / Factor Term1
-#8				| ε
+#7			| / Factor Term1
+#8			| ε
 #9	Factor →	( Exp )
-#10				| Digits
+#10			| Digits
 #11	Digits →	Digit More
 #12	More →		Digits
-#13				| ε
+#13			| ε
 #14	Digit →		0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 
 
@@ -33,13 +33,13 @@ LL1 CALCULATOR PARSER (BEAUTIFIED)
 FIRST SET
 ==================================
 FIRST(Exp):		{(, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
-FIRST(Exp1):	{+, -, ε}
-FIRST(Term):	{(, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
-FIRST(Term1):	{*, /, ε}
-FIRST(Factor):	{(, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
-FIRST(Digits):	{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
-FIRST(More):	{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, ε}
-FIRST(Digit):	{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+FIRST(Exp1):		{+, -, ε}
+FIRST(Term):		{(, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+FIRST(Term1):		{*, /, ε}
+FIRST(Factor):		{(, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+FIRST(Digits):		{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+FIRST(More):		{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, ε}
+FIRST(Digit):		{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
 
 
 
@@ -67,22 +67,22 @@ FIRST+(#6):		*
 FIRST+(#7):		/
 FIRST+(#8):		ε
 FIRST+(#9):		(
-FIRST+(#10):	{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
-FIRST+(#11):	{(, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
-FIRST+(#12):	{(, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
-FIRST+(#13):	ε
-FIRST+(#14):	{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+FIRST+(#10):		{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+FIRST+(#11):		{(, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+FIRST+(#12):		{(, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+FIRST+(#13):		ε
+FIRST+(#14):		{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
 
 
 
 LOOKAHEAD TABLE
 ==================================
-				+				-				ε			*					/					(				)			0...9			EOF
-Exp			error 			error 			error 		error 				error 				Term Exp1		error		Term Exp1			ε
-Exp1		+ Term Exp1		- Term Exp1		ε			error 				error 				error 			error		error 				ε
-Term		error			error			error		error 				error 				Factor Term1	error 		Factor Term1		error
-Term1		error			error			ε			* Factor Term1		/ Factor Term1		error 			error 		error 				error
-Factor		error 			error 			error		error				error				( Exp )			error 		Digits				error 
-Digits		error 			error 			error		error				error				error 			error 		Digit More			error
-More		error 			error 			ε			error				error				error 			error 		Digits				error
-Digit		error 			error 			error		error 				error 				error 			error 		0...9				error
+		+			-			ε		*				/				(			)		0...9			EOF
+Exp		error 			error 			error 		error 				error 				Term Exp1		error		Term Exp1		ε
+Exp1		+ Term Exp1		- Term Exp1		ε		error 				error 				error 			error		error 			ε
+Term		error			error			error		error 				error 				Factor Term1		error 		Factor Term1		error
+Term1		error			error			ε		* Factor Term1			/ Factor Term1			error 			error 		error 			error
+Factor		error 			error 			error		error				error				( Exp )			error 		Digits			error 
+Digits		error 			error 			error		error				error				error 			error 		Digit More		error
+More		error 			error 			ε		error				error				error 			error 		Digits			error
+Digit		error 			error 			error		error 				error 				error 			error 		0...9			error
